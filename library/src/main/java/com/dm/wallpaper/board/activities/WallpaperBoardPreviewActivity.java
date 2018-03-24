@@ -192,11 +192,9 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
         editor = prefs.edit();
         Random rand = new Random();
         int n = rand.nextInt(3);
-        if(status != true) {
             if (n == 1) {
                 showAds();
             }
-        }
         totalCount = prefs.getInt("counter", 0);
         countAds = prefs.getInt("number", 0);
         MobileAds.initialize(this, (getString(R.string.admob_app_id)));
