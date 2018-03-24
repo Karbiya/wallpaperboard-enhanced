@@ -81,7 +81,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import android.util.Log;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +157,30 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
     private SharedPreferences.Editor editor;
     private int totalCount;
     private int countAds;
+    
+    void showAds()
+    {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7760036310954477/9301249849");
+        AdRequest adRequestInterstitial = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequestInterstitial);
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                //showAds();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                mInterstitialAd.show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                showAds();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -167,9 +190,15 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
         setContentView(R.layout.activity_wallpaper_preview);
         prefs = getPreferences(Context.MODE_PRIVATE);
         editor = prefs.edit();
+        Random rand = new Random();
+        int n = rand.nextInt(3);
+        if(status != true) {
+            if (n == 1) {
+                showAds();
+            }
+        }
         totalCount = prefs.getInt("counter", 0);
         countAds = prefs.getInt("number", 0);
-        Log.d("log-","hit");
         MobileAds.initialize(this, (getString(R.string.admob_app_id)));
 
         mInterstitialAd = new InterstitialAd(this);
