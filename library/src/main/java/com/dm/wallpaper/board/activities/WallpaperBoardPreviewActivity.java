@@ -81,7 +81,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
+import android.util.Log;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,7 +169,7 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
         editor = prefs.edit();
         totalCount = prefs.getInt("counter", 0);
         countAds = prefs.getInt("number", 0);
-
+        Log.d("log-","hit");
         MobileAds.initialize(this, (getString(R.string.admob_app_id)));
 
         mInterstitialAd = new InterstitialAd(this);
