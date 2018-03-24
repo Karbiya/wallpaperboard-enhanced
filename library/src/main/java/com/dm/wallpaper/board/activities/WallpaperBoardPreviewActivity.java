@@ -85,6 +85,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import android.util.Log;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -161,7 +162,7 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
     void showAds()
     {
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-7760036310954477/9301249849");
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_id));
         AdRequest adRequestInterstitial = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(adRequestInterstitial);
         mInterstitialAd.setAdListener(new AdListener() {
@@ -192,7 +193,9 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
         editor = prefs.edit();
         Random rand = new Random();
         int n = rand.nextInt(3);
+        Log.d("log-", String.valueOf(n));
             if (n == 1) {
+                Log.d("log-","loaded");
                 showAds();
             }
         totalCount = prefs.getInt("counter", 0);
