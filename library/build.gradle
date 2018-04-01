@@ -108,7 +108,7 @@ dependencies {
     compile 'com.github.KeepSafe:TapTargetView:1.9.1'
     compile 'com.sothree.slidinguppanel:library:3.4.0'
     compile 'me.zhanghai.android.materialprogressbar:library:1.4.2'
-    compile 'com.github.clockbyte:admobadapter:1.4.6'
+    implementation 'com.github.Karbiya:admobadapter:v1.4.6a'
     compile 'com.github.danimahardhika:cafebar:1.3.2'
     implementation('com.github.danimahardhika.android-helpers:core:-SNAPSHOT') {
         changing = true
@@ -134,7 +134,7 @@ dependencies {
 
     // Ad Block Prevention
     compile 'com.cuneytayyildiz:adblockerdetector:1.0.0'
-    
+
 }
 
 configurations.all {
