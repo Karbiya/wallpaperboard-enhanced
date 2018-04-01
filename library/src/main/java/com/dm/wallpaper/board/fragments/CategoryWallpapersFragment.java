@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import com.clockbyte.admobadapter.bannerads.AdmobBannerRecyclerAdapterWrapper;
 import com.danimahardhika.android.helpers.core.ColorHelper;
 import com.danimahardhika.android.helpers.core.DrawableHelper;
 import com.danimahardhika.android.helpers.core.ViewHelper;
@@ -93,6 +94,7 @@ public class CategoryWallpapersFragment extends Fragment {
     private AsyncTask<Void, Void, Boolean> mAsyncTask;
 
     private boolean mIsAppBarExpanded = false;
+    AdmobBannerRecyclerAdapterWrapper adapterWrapper;
 
     public static CategoryWallpapersFragment newInstance(String category, int count) {
         CategoryWallpapersFragment fragment = new CategoryWallpapersFragment();
@@ -320,7 +322,14 @@ public class CategoryWallpapersFragment extends Fragment {
             if (aBoolean) {
                 setHasOptionsMenu(true);
                 mAdapter = new WallpapersAdapter(getActivity(), wallpapers, false, true);
-                mRecyclerView.setAdapter(mAdapter);
+                adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                        .setLimitOfAds(10)
+                        .setFirstAdIndex(2)
+                        .setNoOfDataBetweenAds(10)
+                        .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                        .setAdapter((RecyclerView.Adapter)mAdapter)
+                        .build();
+                mRecyclerView.setAdapter(adapterWrapper);
             }
         }
     }

@@ -126,7 +126,7 @@
 
     <!-- Your Interstitial Ad Unit ID (current ad unit ID is from google for testing purposes) -->
     <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
-
+    <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978111</string>
     <!-- Your Device Test ID (This is to test your ads without getting banned) -->
     <!-- If you don't know your device test Id then search for it on web -->
     <string name="admob_testdevice_id">xxxxxxxxxxxxxxxxxxxxxxxxxx</string>

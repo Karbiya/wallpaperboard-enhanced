@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import com.clockbyte.admobadapter.bannerads.AdmobBannerRecyclerAdapterWrapper;
 import com.danimahardhika.android.helpers.animation.AnimationHelper;
 import com.danimahardhika.android.helpers.core.ColorHelper;
 import com.danimahardhika.android.helpers.core.DrawableHelper;
@@ -80,6 +81,7 @@ public class WallpaperSearchFragment extends Fragment {
     private SearchView mSearchView;
     private WallpapersAdapter mAdapter;
     private AsyncTask<Void, Void, Boolean> mAsyncTask;
+    AdmobBannerRecyclerAdapterWrapper adapterWrapper;
 
     @Nullable
     @Override
@@ -271,7 +273,14 @@ public class WallpaperSearchFragment extends Fragment {
             mAsyncTask = null;
             if (aBoolean) {
                 mAdapter = new WallpapersAdapter(getActivity(), wallpapers, false, false);
-                mRecyclerView.setAdapter(mAdapter);
+                adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                        .setLimitOfAds(10)
+                        .setFirstAdIndex(2)
+                        .setNoOfDataBetweenAds(10)
+                        .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                        .setAdapter((RecyclerView.Adapter)mAdapter)
+                        .build();
+                mRecyclerView.setAdapter(adapterWrapper);
 
                 if (mAdapter.getItemCount() == 0) {
                     String text = String.format(getActivity().getResources().getString(

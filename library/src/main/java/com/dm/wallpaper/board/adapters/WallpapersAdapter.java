@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.danimahardhika.android.helpers.animation.AnimationHelper;
 import com.danimahardhika.android.helpers.core.ColorHelper;
 import com.danimahardhika.android.helpers.core.DrawableHelper;
@@ -183,6 +182,10 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.Vi
     @Override
     public int getItemCount() {
         return mWallpapers.size();
+    }
+
+    public Wallpaper getItem(int position) {
+        return mWallpapers.get(position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

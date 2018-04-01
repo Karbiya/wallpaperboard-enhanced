@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.clockbyte.admobadapter.bannerads.AdmobBannerRecyclerAdapterWrapper;
 import com.danimahardhika.android.helpers.core.ColorHelper;
 import com.danimahardhika.android.helpers.core.ViewHelper;
 import com.dm.wallpaper.board.R;
@@ -27,6 +28,7 @@ import com.dm.wallpaper.board.items.Wallpaper;
 import com.dm.wallpaper.board.preferences.Preferences;
 import com.dm.wallpaper.board.tasks.WallpapersLoaderTask;
 import com.danimahardhika.android.helpers.core.utils.LogUtil;
+import com.google.android.gms.ads.AdRequest;
 
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class WallpapersFragment extends Fragment {
     SwipeRefreshLayout mSwipe;
     @BindView(R2.id.progress)
     MaterialProgressBar mProgress;
-
+    AdmobBannerRecyclerAdapterWrapper adapterWrapper;
     private AsyncTask<Void, Void, Boolean> mAsyncTask;
 
     @Nullable
@@ -108,6 +110,7 @@ public class WallpapersFragment extends Fragment {
         getWallpapers();
     }
 
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -122,6 +125,19 @@ public class WallpapersFragment extends Fragment {
             mAsyncTask.cancel(true);
         }
         super.onDestroy();
+       // adapterWrapper.release();
+    }
+
+    @Override
+    public void onPause() {
+       // adapterWrapper.pauseAll();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        adapterWrapper.resumeAll();
     }
 
     public void getWallpapers() {
@@ -176,7 +192,14 @@ public class WallpapersFragment extends Fragment {
             mProgress.setVisibility(View.GONE);
             if (aBoolean) {
                 WallpapersAdapter adapter = new WallpapersAdapter(getActivity(), mWallpapers, false, false);
-                mRecyclerView.setAdapter(adapter);
+                adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                        .setLimitOfAds(10)
+                        .setFirstAdIndex(2)
+                        .setNoOfDataBetweenAds(10)
+                        .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                        .setAdapter((RecyclerView.Adapter)adapter)
+                        .build();
+                mRecyclerView.setAdapter(adapterWrapper);
             }
         }
     }

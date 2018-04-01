@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.clockbyte.admobadapter.bannerads.AdmobBannerRecyclerAdapterWrapper;
 import com.danimahardhika.android.helpers.core.ViewHelper;
 import com.dm.wallpaper.board.R;
 import com.dm.wallpaper.board.R2;
@@ -62,6 +63,7 @@ public class CategoriesFragment extends Fragment {
     private GridLayoutManager mManager;
     private CategoriesAdapter mAdapter;
     private AsyncTask mAsyncTask;
+    AdmobBannerRecyclerAdapterWrapper adapterWrapper;
 
     @Nullable
     @Override
@@ -84,7 +86,14 @@ public class CategoriesFragment extends Fragment {
         resetViewBottomPadding(mRecyclerView, true);
 
         mAdapter = new CategoriesAdapter(getActivity(), new ArrayList<>());
-        mRecyclerView.setAdapter(mAdapter);
+        adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                .setLimitOfAds(10)
+                .setFirstAdIndex(2)
+                .setNoOfDataBetweenAds(10)
+                .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                .setAdapter((RecyclerView.Adapter)mAdapter)
+                .build();
+        mRecyclerView.setAdapter(adapterWrapper);
 
         getCategories();
     }
@@ -104,7 +113,14 @@ public class CategoriesFragment extends Fragment {
         resetViewBottomPadding(mRecyclerView, true);
 
         mAdapter = new CategoriesAdapter(getActivity(), mCategories);
-        mRecyclerView.setAdapter(mAdapter);
+        adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                .setLimitOfAds(10)
+                .setFirstAdIndex(2)
+                .setNoOfDataBetweenAds(10)
+                .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                .setAdapter((RecyclerView.Adapter)mAdapter)
+                .build();
+        mRecyclerView.setAdapter(adapterWrapper);
 
         mRecyclerView.scrollToPosition(position);
     }
@@ -206,7 +222,14 @@ public class CategoriesFragment extends Fragment {
             if (aBoolean) {
                 if (mAdapter == null) {
                     mAdapter = new CategoriesAdapter(getActivity(), mCategories);
-                    mRecyclerView.setAdapter(mAdapter);
+                    adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                            .setLimitOfAds(10)
+                            .setFirstAdIndex(2)
+                            .setNoOfDataBetweenAds(10)
+                            .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                            .setAdapter((RecyclerView.Adapter)mAdapter)
+                            .build();
+                    mRecyclerView.setAdapter(adapterWrapper);
                 }
             }
         }

@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.clockbyte.admobadapter.bannerads.AdmobBannerRecyclerAdapterWrapper;
 import com.danimahardhika.android.helpers.core.ColorHelper;
 import com.danimahardhika.android.helpers.core.ViewHelper;
 import com.dm.wallpaper.board.R;
@@ -29,6 +30,7 @@ import com.dm.wallpaper.board.items.Wallpaper;
 import com.dm.wallpaper.board.tasks.WallpapersLoaderTask;
 import com.dm.wallpaper.board.utils.Extras;
 import com.danimahardhika.android.helpers.core.utils.LogUtil;
+import com.google.android.gms.ads.AdRequest;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 
 import java.io.InputStream;
@@ -69,6 +71,7 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
     SwipeRefreshLayout mSwipe;
     @BindView(R2.id.progress)
     MaterialProgressBar mProgress;
+    AdmobBannerRecyclerAdapterWrapper adapterWrapper;
 
     private List<Wallpaper> mWallpapers;
     private LatestAdapter mAdapter;
@@ -83,6 +86,13 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
         return view;
     }
 
+
+    public boolean supportsPredictiveItemAnimations() {
+        return false;
+    }
+
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -94,7 +104,14 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
 
         mWallpapers = new ArrayList<>();
         mAdapter = new LatestAdapter(getActivity(), mWallpapers);
-        mRecyclerView.setAdapter(mAdapter);
+        adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                .setLimitOfAds(10)
+                .setFirstAdIndex(2)
+                .setNoOfDataBetweenAds(10)
+                .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                .setAdapter((RecyclerView.Adapter)mAdapter)
+                .build();
+        mRecyclerView.setAdapter(adapterWrapper);
 
         mSwipe.setColorSchemeColors(ColorHelper.getAttributeColor(
                 getActivity(), R.attr.colorAccent));
@@ -112,6 +129,8 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
         resetViewBottomPadding(mRecyclerView, true);
 
         mAsyncTask = new WallpapersLoader().execute();
+
+
     }
 
     @Override
@@ -129,7 +148,14 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
         resetViewBottomPadding(mRecyclerView, true);
 
         mAdapter = new LatestAdapter(getActivity(), mWallpapers);
-        mRecyclerView.setAdapter(mAdapter);
+        adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                .setLimitOfAds(10)
+                .setFirstAdIndex(2)
+                .setNoOfDataBetweenAds(10)
+                .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                .setAdapter((RecyclerView.Adapter)mAdapter)
+                .build();
+        mRecyclerView.setAdapter(adapterWrapper);
 
         if (positions.length > 0)
             mRecyclerView.scrollToPosition(positions[0]);
@@ -282,7 +308,14 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
                     }
 
                     mAdapter = new LatestAdapter(getActivity(), mWallpapers);
-                    mRecyclerView.setAdapter(mAdapter);
+                    adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
+                            .setLimitOfAds(10)
+                            .setFirstAdIndex(2)
+                            .setNoOfDataBetweenAds(10)
+                            .setSingleAdUnitId(getString(R.string.admob_banner_id))
+                            .setAdapter((RecyclerView.Adapter)mAdapter)
+                            .build();
+                    mRecyclerView.setAdapter(adapterWrapper);
                 }
             }
         }
