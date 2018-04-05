@@ -274,9 +274,9 @@ public class WallpaperSearchFragment extends Fragment {
             if (aBoolean) {
                 mAdapter = new WallpapersAdapter(getActivity(), wallpapers, false, false);
                 adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                        .setLimitOfAds(10)
+                        .setLimitOfAds(9999)
                         .setFirstAdIndex(2)
-                        .setNoOfDataBetweenAds(10)
+                        .setNoOfDataBetweenAds(2)
                         .setSingleAdUnitId(getString(R.string.admob_banner_id))
                         .setAdapter((RecyclerView.Adapter)mAdapter)
                         .build();

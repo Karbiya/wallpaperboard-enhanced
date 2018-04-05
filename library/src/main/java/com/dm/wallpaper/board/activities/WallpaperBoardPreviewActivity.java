@@ -191,13 +191,6 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
         setContentView(R.layout.activity_wallpaper_preview);
         prefs = getPreferences(Context.MODE_PRIVATE);
         editor = prefs.edit();
-        Random rand = new Random();
-        int n = rand.nextInt(3);
-        Log.d("log-", String.valueOf(n));
-            if (n == 1) {
-                Log.d("log-","loaded");
-                showAds();
-            }
         totalCount = prefs.getInt("counter", 0);
         countAds = prefs.getInt("number", 0);
         MobileAds.initialize(this, (getString(R.string.admob_app_id)));
@@ -400,6 +393,13 @@ public class WallpaperBoardPreviewActivity extends AppCompatActivity implements 
 
     @Override
     public void onBackPressed() {
+        Random rand = new Random();
+        int n = rand.nextInt(2);
+        Log.d("log-", String.valueOf(n));
+        if (n == 1) {
+            Log.d("log-","loaded");
+            showAds();
+        }
         if (mSlidingLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             mSlidingLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return;

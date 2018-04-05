@@ -87,9 +87,9 @@ public class CategoriesFragment extends Fragment {
 
         mAdapter = new CategoriesAdapter(getActivity(), new ArrayList<>());
         adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                .setLimitOfAds(10)
+                .setLimitOfAds(9999)
                 .setFirstAdIndex(2)
-                .setNoOfDataBetweenAds(10)
+                .setNoOfDataBetweenAds(2)
                 .setSingleAdUnitId(getString(R.string.admob_banner_id))
                 .setAdapter((RecyclerView.Adapter)mAdapter)
                 .build();
@@ -114,9 +114,9 @@ public class CategoriesFragment extends Fragment {
 
         mAdapter = new CategoriesAdapter(getActivity(), mCategories);
         adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                .setLimitOfAds(10)
+                .setLimitOfAds(9999)
                 .setFirstAdIndex(2)
-                .setNoOfDataBetweenAds(10)
+                .setNoOfDataBetweenAds(2)
                 .setSingleAdUnitId(getString(R.string.admob_banner_id))
                 .setAdapter((RecyclerView.Adapter)mAdapter)
                 .build();
@@ -223,9 +223,9 @@ public class CategoriesFragment extends Fragment {
                 if (mAdapter == null) {
                     mAdapter = new CategoriesAdapter(getActivity(), mCategories);
                     adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                            .setLimitOfAds(10)
+                            .setLimitOfAds(9999)
                             .setFirstAdIndex(2)
-                            .setNoOfDataBetweenAds(10)
+                            .setNoOfDataBetweenAds(2)
                             .setSingleAdUnitId(getString(R.string.admob_banner_id))
                             .setAdapter((RecyclerView.Adapter)mAdapter)
                             .build();

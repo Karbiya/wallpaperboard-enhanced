@@ -323,9 +323,9 @@ public class CategoryWallpapersFragment extends Fragment {
                 setHasOptionsMenu(true);
                 mAdapter = new WallpapersAdapter(getActivity(), wallpapers, false, true);
                 adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                        .setLimitOfAds(10)
+                        .setLimitOfAds(9999)
                         .setFirstAdIndex(2)
-                        .setNoOfDataBetweenAds(10)
+                        .setNoOfDataBetweenAds(2)
                         .setSingleAdUnitId(getString(R.string.admob_banner_id))
                         .setAdapter((RecyclerView.Adapter)mAdapter)
                         .build();

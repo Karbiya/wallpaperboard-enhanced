@@ -105,9 +105,9 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
         mWallpapers = new ArrayList<>();
         mAdapter = new LatestAdapter(getActivity(), mWallpapers);
         adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                .setLimitOfAds(10)
+                .setLimitOfAds(9999)
                 .setFirstAdIndex(2)
-                .setNoOfDataBetweenAds(10)
+                .setNoOfDataBetweenAds(2)
                 .setSingleAdUnitId(getString(R.string.admob_banner_id))
                 .setAdapter((RecyclerView.Adapter)mAdapter)
                 .build();
@@ -149,9 +149,9 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
 
         mAdapter = new LatestAdapter(getActivity(), mWallpapers);
         adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                .setLimitOfAds(10)
+                .setLimitOfAds(9999)
                 .setFirstAdIndex(2)
-                .setNoOfDataBetweenAds(10)
+                .setNoOfDataBetweenAds(2)
                 .setSingleAdUnitId(getString(R.string.admob_banner_id))
                 .setAdapter((RecyclerView.Adapter)mAdapter)
                 .build();
@@ -309,9 +309,9 @@ public class LatestFragment extends Fragment implements WallpapersLoaderTask.Cal
 
                     mAdapter = new LatestAdapter(getActivity(), mWallpapers);
                     adapterWrapper = AdmobBannerRecyclerAdapterWrapper.builder(getActivity())
-                            .setLimitOfAds(10)
+                            .setLimitOfAds(9999)
                             .setFirstAdIndex(2)
-                            .setNoOfDataBetweenAds(10)
+                            .setNoOfDataBetweenAds(2)
                             .setSingleAdUnitId(getString(R.string.admob_banner_id))
                             .setAdapter((RecyclerView.Adapter)mAdapter)
                             .build();
