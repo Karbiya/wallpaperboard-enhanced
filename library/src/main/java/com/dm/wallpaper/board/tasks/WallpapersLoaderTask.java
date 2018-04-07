@@ -11,6 +11,7 @@ import com.bluelinelabs.logansquare.LoganSquare;
 import com.danimahardhika.android.helpers.core.ListHelper;
 import com.danimahardhika.cafebar.CafeBar;
 import com.danimahardhika.cafebar.CafeBarTheme;
+import com.dm.wallpaper.board.BuildConfig;
 import com.dm.wallpaper.board.R;
 import com.dm.wallpaper.board.applications.WallpaperBoardApplication;
 import com.dm.wallpaper.board.databases.Database;
@@ -27,9 +28,14 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.Executor;
 
 import cz.msebera.android.httpclient.NameValuePair;
@@ -86,14 +92,43 @@ public class WallpapersLoaderTask extends AsyncTask<Void, Void, Boolean> {
         return new WallpapersLoaderTask(context).executeOnExecutor(executor);
     }
 
+    public static final String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     @Override
     protected Boolean doInBackground(Void... voids) {
         while (!isCancelled()) {
             try {
                 Thread.sleep(1);
+                TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
+                Calendar c = Calendar.getInstance(tz);
+                String md5 = BuildConfig.APPLICATION_ID+"-"+String.format("%02d",c.get(Calendar.DATE));
+                md5 = md5(md5);
                 String wallpaperUrl = WallpaperBoardApplication.getConfig().getJsonStructure().getUrl();
                 if (wallpaperUrl == null) {
-                    wallpaperUrl = mContext.get().getResources().getString(R.string.wallpaper_json);
+                    wallpaperUrl = mContext.get().getResources().getString(R.string.wallpaper_json) + "?token="+md5;
                 }
 
                 URL url = new URL(wallpaperUrl);
